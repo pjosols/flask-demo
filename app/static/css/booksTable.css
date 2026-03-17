@@ -1,27 +1,15 @@
-/* Custom styling specifically for this table view */
-tr.shown {
-    background-color: rgba(63, 108, 255, 0.05) !important;
+#novels_table tbody tr { cursor: pointer; }
+
+/* Allow text columns to wrap rather than expand the table */
+#novels_table td {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-/* More compact table */
-.compact-table th,
-.compact-table td {
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-}
-
-#novels_table tbody tr {
-    cursor: pointer;
-}
-
-/* Date field styling */
-.DTE_Field input[name="PublishedDate"] {
-    font-family: monospace;
-    letter-spacing: 1px;
-}
-
-/* Format dates nicely in the table */
-.published-date {
-    font-style: italic;
-    color: #aaa;
+/* But keep year/format/rating on one line */
+#novels_table td:nth-child(5),
+#novels_table td:nth-child(7),
+#novels_table td:nth-child(8) {
+    white-space: nowrap;
 }

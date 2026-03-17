@@ -82,3 +82,6 @@ coverage.xml
 
 # Archive
 _archive/
+_dev/
+# Kiro CLI configuration
+.kiro/

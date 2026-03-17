@@ -1,0 +1,514 @@
+/* ══════════════════════════════════════════════════════
+   Dark Vinyl Crate Theme
+   Single accent color · Consistent interactive elements
+   ══════════════════════════════════════════════════════ */
+
+:root {
+    --bs-font-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+                          Helvetica, Arial, sans-serif;
+
+    /* Dark warm palette */
+    --bs-body-bg:         #1c1917;
+    --bs-body-color:      #e7e5e4;
+    --bs-secondary-color: #a8a29e;
+    --bs-border-color:    #3d3835;
+
+    --bs-border-radius:    5px;
+    --bs-border-radius-sm: 3px;
+    --bs-border-radius-lg: 8px;
+
+    /* Single accent: warm amber */
+    --accent:             #f59e0b;
+    --accent-rgb:         245, 158, 11;
+    --accent-hover:       #d97706;
+    --accent-subtle:      rgba(245, 158, 11, 0.12);
+    --accent-subtle-hover:rgba(245, 158, 11, 0.22);
+
+    --bs-primary:         var(--accent);
+    --bs-primary-rgb:     var(--accent-rgb);
+    --bs-warning:         var(--accent);
+    --bs-warning-rgb:     var(--accent-rgb);
+
+    /* Surfaces */
+    --surface:            #292524;
+    --surface-raised:     #33302e;
+    --surface-hover:      #3d3835;
+
+    --bs-card-bg:          var(--surface);
+    --bs-card-border-color:var(--bs-border-color);
+    --bs-card-box-shadow:  0 1px 6px rgba(0,0,0,0.3);
+}
+
+/* ── Page ─────────────────────────────────────────────── */
+body {
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.main-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.page-header {
+    border-bottom: none;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.9rem;
+}
+
+.page-header h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--accent);
+}
+
+.page-icon {
+    font-size: 3.1rem;
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+/* Solid .btn-secondary — used by DataTables SearchBuilder etc. */
+.btn-secondary {
+    color: var(--accent);
+    background: transparent;
+    border-color: var(--bs-border-color);
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background: var(--accent-subtle-hover);
+    border-color: var(--accent);
+}
+
+.btn-secondary:active,
+.btn-secondary.active {
+    color: #1c1917 !important;
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+/* ── Unified button style ─────────────────────────────── */
+/* Override ALL outline variants to use the single accent  */
+.btn-outline-primary,
+.btn-outline-warning,
+.btn-outline-secondary {
+    color: var(--accent);
+    border-color: var(--bs-border-color);
+    background: transparent;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-warning:hover,
+.btn-outline-secondary:hover {
+    color: #fff;
+    background: var(--accent-subtle-hover);
+    border-color: var(--accent);
+}
+
+.btn-outline-primary.active,
+.btn-outline-warning.active,
+.btn-outline-secondary.active,
+.btn-outline-primary:active,
+.btn-outline-warning:active,
+.btn-outline-secondary:active {
+    color: #1c1917 !important;
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+.btn-check:checked + .btn-outline-primary {
+    color: #1c1917;
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* DataTables export buttons — match the accent system */
+.dt-buttons .dt-button {
+    color: var(--accent) !important;
+    border-color: var(--bs-border-color) !important;
+    background: transparent !important;
+}
+
+.dt-buttons .dt-button:hover {
+    color: #fff !important;
+    background: var(--accent-subtle-hover) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Badges inside buttons */
+.btn .badge {
+    background: var(--accent-subtle) !important;
+    color: var(--accent) !important;
+}
+
+.btn.active .badge {
+    background: rgba(0,0,0,0.2) !important;
+    color: #fff !important;
+}
+
+/* ── Card ─────────────────────────────────────────────── */
+.card {
+    background: var(--surface);
+    border-color: var(--bs-border-color);
+    box-shadow: var(--bs-card-box-shadow);
+}
+
+/* ── Table ────────────────────────────────────────────── */
+.table {
+    font-size: 0.85rem;
+    color: var(--bs-secondary-color) !important;
+    --bs-table-bg:         var(--surface);
+    --bs-table-striped-bg: var(--surface-raised);
+    --bs-table-hover-bg:   var(--accent-subtle-hover);
+    --bs-table-border-color: var(--bs-border-color);
+}
+
+.table thead th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--bs-secondary-color);
+    background: var(--surface-raised);
+    border-bottom-color: var(--bs-border-color);
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+}
+
+.table tbody td {
+    padding: 0.3rem 0.75rem;
+    vertical-align: middle;
+    border-color: var(--bs-border-color);
+    color: var(--bs-secondary-color) !important;
+}
+
+/* Selected row */
+.table tbody tr.selected,
+.table tbody tr.selected td {
+    background: var(--accent-subtle-hover) !important;
+    color: #fff;
+}
+
+/* ── Cover art ────────────────────────────────────────── */
+.cover-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.cover-placeholder {
+    width: 56px;
+    height: 56px;
+    background: var(--surface-hover);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #57534e;
+    font-size: 1.3rem;
+}
+
+/* ── Genre / format badges ────────────────────────────── */
+.genre-badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    background: var(--accent-subtle);
+    color: var(--accent);
+    border-radius: 3px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    margin: 0 0.2em 0.2em 0;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.format-badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    background: var(--surface-hover);
+    color: var(--bs-secondary-color);
+    border-radius: 3px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--bs-border-color);
+}
+
+/* ── Star ratings ─────────────────────────────────────── */
+.star-rating { color: var(--accent); letter-spacing: -0.02em; }
+
+/* ── DataTables chrome ────────────────────────────────── */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate,
+.dt-info,
+.dt-length,
+.dt-search label {
+    font-size: 0.82rem;
+    color: var(--bs-secondary-color) !important;
+    padding-top: 0.5rem;
+}
+
+.dt-info-row {
+    padding-top: 6px;
+    padding-bottom: 14px;
+}
+
+/* Fix BS5 mt-2 on empty DT layout rows (content moved to sidebar) */
+.dt-container > div.row {
+    margin-top: 0 !important;
+}
+
+.dt-info {
+    padding-left: 0.75rem;
+}
+
+.dt-layout-row:last-child {
+    margin: 0.5rem 0;
+}
+.page-link,
+.page-link:hover,
+.page-link:focus,
+.page-item.active .page-link,
+.page-item.disabled .page-link,
+.disabled > .page-link,
+.page-link.disabled {
+    background-color: transparent !important;
+    border-color: var(--bs-border-color) !important;
+    color: var(--bs-secondary-color);
+}
+
+.page-link:hover {
+    background-color: var(--surface-hover) !important;
+    border-color: var(--surface-hover) !important;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #1c1917;
+}
+
+.page-item.disabled .page-link,
+.disabled > .page-link,
+.page-link.disabled {
+    color: #57534e;
+}
+
+/* Search input */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dt-search input {
+    background: var(--surface);
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+    border-radius: var(--bs-border-radius);
+}
+
+.dataTables_wrapper .dataTables_filter input:focus,
+.dataTables_wrapper .dt-search input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* Column footer search inputs */
+tfoot .form-control {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.4rem;
+    background: var(--surface);
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+}
+
+tfoot .form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* SearchBuilder */
+.dtsb-searchBuilder {
+    background: var(--surface);
+    border-radius: var(--bs-border-radius);
+    padding: 0.75rem;
+}
+
+.dtsb-searchBuilder select,
+.dtsb-searchBuilder input {
+    background: var(--surface-raised) !important;
+    border-color: var(--bs-border-color) !important;
+    color: var(--bs-body-color) !important;
+}
+
+.dtsb-searchBuilder .dtsb-delete,
+.dtsb-searchBuilder .dtsb-right,
+.dtsb-searchBuilder .dtsb-left {
+    color: var(--accent) !important;
+    border-color: var(--bs-border-color) !important;
+    background: transparent !important;
+}
+
+.dtsb-searchBuilder .dtsb-delete:hover,
+.dtsb-searchBuilder .dtsb-right:hover,
+.dtsb-searchBuilder .dtsb-left:hover {
+    background: var(--accent-subtle-hover) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Processing indicator */
+.dataTables_processing {
+    background: var(--surface) !important;
+    color: var(--accent) !important;
+}
+
+/* ── Form switches ────────────────────────────────────── */
+.form-check-label {
+    color: var(--bs-secondary-color);
+}
+
+.form-check-input {
+    background-color: var(--surface-hover);
+    border-color: var(--bs-border-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 2px var(--accent-subtle);
+    border-color: var(--accent);
+}
+
+/* ── Vertical rules ───────────────────────────────────── */
+.vr {
+    display: none;
+}
+
+/* ── Alerts ───────────────────────────────────────────── */
+.alert-danger {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+}
+
+.alert-info {
+    background: var(--accent-subtle);
+    border-color: rgba(245, 158, 11, 0.2);
+    color: var(--accent);
+}
+
+/* ── Text utilities ───────────────────────────────────── */
+.text-muted {
+    color: #78716c !important;
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+footer .small {
+    color: #57534e;
+}
+
+/* ── Scrollbar (webkit) ───────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bs-body-bg); }
+::-webkit-scrollbar-thumb { background: var(--surface-hover); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #57534e; }
+
+/* ── Sidebar ───────────────────────────────────────────── */
+.sidebar {
+    width: 220px;
+    min-width: 220px;
+    padding-top: 0.25rem;
+}
+
+.sidebar-section {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.sidebar-section:last-child { border-bottom: none; }
+
+.sidebar-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+}
+
+.sidebar-tag {
+    font-size: 0.6rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    background: var(--accent-subtle);
+    color: var(--accent);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    margin-left: auto;
+}
+
+.sidebar-hint {
+    font-size: 0.7rem;
+    color: #57534e;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.sidebar-hint code {
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+}
+
+.sidebar-features {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0 0;
+    font-size: 0.7rem;
+    color: #78716c;
+}
+
+.sidebar-features li {
+    padding: 0.15rem 0;
+}
+
+.sidebar-features code {
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+}
+
+/* Export buttons in sidebar — stack vertically */
+#export-slot .dt-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+#export-slot .dt-button {
+    text-align: left;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+    .main-container { padding: 1rem 0.75rem; }
+    .sidebar { display: none; }
+}
+}

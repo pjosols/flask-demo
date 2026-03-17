@@ -1,93 +1,187 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Dystopian Archives</title>
+        <title>Vinyl Archives</title>
 
         <!-- Favicon -->
-        <link rel="icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon/favicon.svg') }}" type="image/svg+xml">
         <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
         <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
 
-        <!-- DataTables CSS -->
+        <!-- Bootstrap 5 + DataTables bs5 bundle -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/moment-2.29.4/jszip-3.10.1/dt-2.2.2/af-2.7.0/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/cr-2.0.4/date-1.5.5/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.4/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.2/sp-2.3.3/sl-3.0.0/sr-1.4.1/datatables.min.css" rel="stylesheet" integrity="sha384-wYf859STWTPggciSnTIDCGMabsgGXnODSCOXsmSXYvBU+qa7uYQjrZCTi9/jyzAD" crossorigin="anonymous">
-
-        <!-- DataTables Editor CSS - Uncomment to enable editing functionality -->
-        <!-- <link href="{{ url_for('static', filename='Editor-2.4.1/css/editor.bootstrap5.min.css') }}" rel="stylesheet"> -->
-
-        <!-- Google Fonts - Space Grotesk for headings, Inter for body -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Bootstrap Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
+        <!-- Display font for wordmark -->
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
         <!-- Theme CSS -->
-        <link href="{{ url_for('static', filename='css/dystopianTheme.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/darkTheme.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/booksTable.css') }}" rel="stylesheet">
-        
-        <style>
-            .search-help {
-                margin-top: 5px;
-                color: #6c757d;
-            }
-            
-            .search-help small {
-                font-style: italic;
-            }
-        </style>
     </head>
     <body>
         <div class="main-container">
-            <div class="d-flex justify-content-between align-items-center page-header">
+            <!-- Header -->
+            <div class="d-flex align-items-center page-header">
+                <i class="bi bi-vinyl page-icon me-3"></i>
                 <div>
-                    <h1 class="display-5 mb-0">Dystopian Novels</h1>
-                    <p class="text-muted mt-2 mb-0">Exploring dark futures and societal warnings</p>
+                    <h1 class="mb-0">Vinyl Archives</h1>
+                    <p class="text-muted mt-1 mb-0">A curated collection of essential records</p>
                 </div>
-                <div class="d-none d-md-block">
-                    <div class="position-relative">
-                        <i class="bi bi-book-half" style="font-size: 2.5rem; opacity: 0.7;"></i>
+            </div>
+
+            <!-- Two-column layout: sidebar + table -->
+            <div class="d-flex gap-3">
+
+                <!-- ── Left Nav ───────────────────────────────── -->
+                <nav class="sidebar" id="feature-nav">
+
+                    <!-- Search -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">
+                            <i class="bi bi-search"></i> Search
+                            <span class="sidebar-tag">global</span>
+                        </div>
+                        <p class="sidebar-hint">Server-side search across all columns via <code>ajax</code> POST.</p>
+                        <div id="search-slot"></div>
+                        <div class="d-flex gap-3 mt-2">
+                            <div class="form-check form-switch mb-0">
+                                <input class="form-check-input" type="checkbox" id="toggle-regex">
+                                <label class="form-check-label small" for="toggle-regex">Regex</label>
+                            </div>
+                            <div class="form-check form-switch mb-0">
+                                <input class="form-check-input" type="checkbox" id="toggle-case">
+                                <label class="form-check-label small" for="toggle-case">Case</label>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Data Source -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">
+                            <i class="bi bi-database"></i> Data Source
+                            <span class="sidebar-tag">ajax endpoint</span>
+                        </div>
+                        <p class="sidebar-hint">Swaps the server endpoint. Filtered route applies a MongoDB query server-side.</p>
+                        <div class="btn-group btn-group-sm w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary active" id="btn-all-books" data-url="/api/books">All</button>
+                            <button type="button" class="btn btn-outline-primary" id="btn-filtered-books" data-url="/api/books/filtered">Rating ≥ 3.5</button>
+                        </div>
+                    </div>
+
+                    <!-- searchFixed -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">
+                            <i class="bi bi-star"></i> Essential
+                            <span class="sidebar-tag">searchFixed</span>
+                        </div>
+                        <p class="sidebar-hint">Injects a persistent column search via <code>searchFixed</code> on the rating column.</p>
+                        <button type="button" class="btn btn-sm btn-outline-primary w-100" id="btn-high-rated">
+                            ★ Rating ≥ 4
+                        </button>
+                    </div>
+
+                    <!-- SearchBuilder -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">
+                            <i class="bi bi-funnel"></i> SearchBuilder
+                            <span class="sidebar-tag">searchBuilder</span>
+                        </div>
+                        <p class="sidebar-hint">Complex multi-condition queries built client-side, executed server-side.</p>
+                        <button class="btn btn-sm btn-outline-primary w-100" id="btn-filters-toggle"
+                                data-bs-toggle="collapse" data-bs-target="#search-builder-collapse" aria-expanded="false">
+                            <i class="bi bi-funnel"></i> Toggle Filters
+                        </button>
+                        <div class="collapse mt-2" id="search-builder-collapse"></div>
+                    </div>
+
+                    <!-- Export -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">
+                            <i class="bi bi-download"></i> Export
+                            <span class="sidebar-tag">buttons</span>
+                        </div>
+                        <p class="sidebar-hint">DataTables Buttons extension — Copy, Excel, PDF, Print.</p>
+                        <div id="export-slot"></div>
+                    </div>
+
+                    <!-- Features list -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">
+                            <i class="bi bi-gear"></i> Active Features
+                        </div>
+                        <ul class="sidebar-features">
+                            <li><code>serverSide</code> processing</li>
+                            <li><code>scroller</code> virtual scroll</li>
+                            <li><code>select</code> row selection</li>
+                            <li><code>stateSave</code> persistence</li>
+                            <li><code>colReorder</code> drag columns</li>
+                            <li><code>responsive</code> collapse</li>
+                            <li>Column footer search</li>
+                        </ul>
+                    </div>
+
+                    <!-- Error display -->
+                    <span class="alert alert-danger d-none py-1 px-2 mb-0 small" id="server-error-alert" role="alert">
+                        <i class="bi bi-exclamation-triangle"></i> <span id="server-error"></span>
+                    </span>
+                </nav>
+
+                <!-- ── Main content ───────────────────────────── -->
+                <div class="flex-grow-1" style="min-width: 0;">
+
+                    <div class="card mb-4">
+                        <div class="card-body p-0">
+                            <table id="novels_table" class="table table-striped table-hover mb-0" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Artist</th>
+                                    <th>Title</th>
+                                    <th>Label</th>
+                                    <th>Year</th>
+                                    <th>Genre</th>
+                                    <th>Format</th>
+                                    <th>Rating</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <footer class="mt-4 text-center text-muted">
+                        <p class="small mb-0">Vinyl Archives • Powered by MongoDB &amp; DataTables</p>
+                    </footer>
                 </div>
             </div>
-
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <table id="novels_table" class="table table-striped table-hover" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Published</th>
-                            <th>Themes</th>
-                            <th>Pages</th>
-                            <th>Rating</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-
-            <footer class="mt-5 text-center text-muted">
-                <p class="small">The Dystopian Archives Database • Powered by MongoDB & DataTables</p>
-            </footer>
         </div>
 
-        <!-- DataTables JS (includes Bootstrap 5, jQuery, JSZip, pdfmake, Moment, and all extensions) -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity="sha384-VFQrHzqBh5qiJIU0uGU5CIW3+OWpdGGJM9LBnGbuIH2mkICcFZ7lPd/AAtI7SNf7" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/moment-2.29.4/jszip-3.10.1/dt-2.2.2/af-2.7.0/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/cr-2.0.4/date-1.5.5/fc-5.0.4/fh-4.0.1/kt-2.12.1/r-3.0.4/rg-1.5.1/rr-1.5.0/sc-2.4.3/sb-1.8.2/sp-2.3.3/sl-3.0.0/sr-1.4.1/datatables.min.js" integrity="sha384-pdpncyjMFzkxj3N8+5wWQGxGZCFzkWFpInHw4/e5Eg98sIg19W5HYwuEocBQGTtO" crossorigin="anonymous"></script>
 
         <!-- DataTables Editor JS - Uncomment to enable editing functionality -->
-        <!-- <script src="{{ url_for('static', filename='Editor-2.4.1/js/dataTables.editor.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='Editor-2.4.1/js/editor.bootstrap5.min.js') }}"></script> -->
-        
-        <!-- Books Table JS -->
+        <!-- <script src="{{ url_for('static', filename='Editor-2.4.1/js/dataTables.editor.min.js') }}"></script> -->
+
         <script src="{{ url_for('static', filename='js/booksTable.js') }}"></script>
     </body>
 </html>

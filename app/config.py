@@ -24,7 +24,7 @@ class Config:
     """
 
     # MongoDB connection URI - connects to the books demo database
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/book_database")
+    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/vinyl_database")
 
     # Flask secret key for session management and CSRF protection
     SECRET_KEY = os.environ.get("SECRET_KEY", "your-secret-key")  # Change this in production
