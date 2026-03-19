@@ -7,23 +7,17 @@ def create_indexes(db=None):
             from flask import current_app
             db = current_app.mongo.db  # type: ignore
 
-        print("Creating indexes...")
-
-        col = db["records"]
+        col = db["laureates"]
 
         col.create_index([
-            ("artist", "text"),
-            ("title",  "text"),
-            ("label",  "text"),
-            ("genre",  "text"),
-            ("styles", "text"),
+            ("name",          "text"),
+            ("birth_country", "text"),
+            ("category",      "text"),
+            ("motivation",    "text"),
         ])
 
-        for field in ("artist", "title", "label", "year", "format", "country", "rating"):
+        for field in ("name", "birth_country", "year", "category", "gender", "share"):
             col.create_index(field)
-
-        col.create_index("genre")
-        col.create_index("styles")
 
         print("Indexes created.")
 
@@ -36,7 +30,7 @@ def create_indexes(db=None):
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--uri", default="mongodb://localhost:27017/vinyl_database")
+    parser.add_argument("--uri", default="mongodb://localhost:27017/nobel_demo")
     args = parser.parse_args()
     client = MongoClient(args.uri)
     create_indexes(client.get_database())
