@@ -4,12 +4,14 @@ from app import mongo
 from app.laureates import laureates
 
 DATA_FIELDS = [
-    DataField("name",          "string"),
-    DataField("birth_country", "string"),
-    DataField("year",          "number"),
-    DataField("category",      "string"),
-    DataField("motivation",    "string"),
-    DataField("share",         "number"),
+    DataField("name",         "string"),
+    DataField("country_code", "keyword"),
+    DataField("feature_code", "keyword"),
+    DataField("admin1_code",  "keyword"),
+    DataField("population",   "number"),
+    DataField("timezone",     "string"),
+    DataField("latitude",     "number"),
+    DataField("longitude",    "number"),
 ]
 
 
@@ -18,12 +20,12 @@ def index():
     return render_template('index.html')
 
 
-@laureates.route('/api/laureates', methods=['POST'])
-def laureates_data():
+@laureates.route('/api/places', methods=['POST'])
+def places_data():
     data = {}
     try:
         data = request.get_json()
-        return jsonify(DataTables(mongo, "laureates", data, data_fields=DATA_FIELDS).get_rows())
+        return jsonify(DataTables(mongo, "places", data, data_fields=DATA_FIELDS).get_rows())
     except Exception as e:
         import traceback
         print(traceback.format_exc())

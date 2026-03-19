@@ -1,12 +1,17 @@
 :root {
-    --accent: #40e0ff;
-    --accent-dim: rgba(64, 224, 255, 0.12);
+    /* Flask brand – teal primary derived from official #004b6b, lightened for dark theme */
+    --accent: #3db8c9;
+    --accent-dim: rgba(61, 184, 201, 0.12);
+    --accent-hover: #d4956a;          /* warm complement from Flask's #6d4100 */
+    --bg: #0b0d10;
     --surface: #151a21;
     --border: #273140;
+    --text: #e9eef5;
+    --text-muted: #c8d1dc;
 }
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: #0b0d10;
+    background: var(--bg);
 }
 
 /* Header */
@@ -33,13 +38,13 @@ body {
     color: var(--accent);
     border-bottom-color: var(--border);
 }
-.table td { font-size: 0.8rem; color: #e9eef5; }
+.table td { font-size: 0.8rem; color: var(--text); }
 
 /* Pagination */
 .page-item.active .page-link {
     background: var(--accent);
     border-color: var(--accent);
-    color: #0b0d10;
+    color: var(--bg);
     font-weight: 600;
 }
 .page-link { color: rgba(255,255,255,0.5); }
@@ -60,4 +65,4 @@ body {
 
 /* Footer */
 footer a { color: var(--accent); text-decoration: none; }
-footer a:hover { color: #7aeeff; }
+footer a:hover { color: var(--accent-hover); }

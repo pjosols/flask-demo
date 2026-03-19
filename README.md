@@ -1,7 +1,8 @@
 # mongo-datatables Flask Demo
 
-A minimal Flask app demonstrating server-side DataTables powered by
-[mongo-datatables](https://github.com/pjosols/mongo-datatables).
+A Flask app demonstrating server-side DataTables powered by
+[mongo-datatables](https://github.com/pjosols/mongo-datatables), using the
+[GeoNames](https://www.geonames.org/) dataset (~13M geographic place names).
 
 ## Quickstart
 
@@ -14,9 +15,13 @@ A minimal Flask app demonstrating server-side DataTables powered by
    pip install -r requirements.txt
    ```
 
-2. Seed the database (requires MongoDB running locally):
+2. Download and seed the database:
    ```bash
-   python seed_data.py
+   python seed_geonames.py --download
+   ```
+   If you already have `data/allCountries.txt`:
+   ```bash
+   python seed_geonames.py
    ```
 
 3. Run:
@@ -30,7 +35,7 @@ Open [http://localhost:5000](http://localhost:5000).
 ## Custom MongoDB connection
 
 ```bash
-python seed_data.py --connection "mongodb://user:password@host:port/"
+python seed_geonames.py --connection "mongodb://user:password@host:port/"
 ```
 
 Set `MONGO_URI` in the environment to point the app at a different instance.
@@ -46,11 +51,11 @@ flask-demo/
 │   ├── laureates/
 │   │   ├── __init__.py      # blueprint
 │   │   └── routes.py        # views + API endpoint
-│   ├── static/js/table.js   # DataTables init
+│   ├── static/js/table.js   # DataTables init + header→field mapping
 │   ├── templates/index.html # page template
-│   └── tools/db_init.py     # index creation
-├── data/laureates.json      # Nobel Prize data (1901–present)
-├── seed_data.py             # loads data into MongoDB
+│   └── tools/db_init.py     # index creation (runs on startup)
+├── data/allCountries.txt    # GeoNames bulk data (downloaded separately)
+├── seed_geonames.py         # downloads and loads data into MongoDB
 └── requirements.txt
 ```
 
@@ -60,42 +65,46 @@ flask-demo/
 
 ```python
 DATA_FIELDS = [
-    DataField("name",          "string"),
-    DataField("gender",        "string"),
-    DataField("birth_country", "string"),
-    DataField("year",          "number"),
-    DataField("category",      "string"),
-    DataField("motivation",    "string"),
-    DataField("share",         "number"),
+    DataField("name",         "string"),   # substring search
+    DataField("country_code", "keyword"),  # exact match, uses index
+    DataField("feature_code", "keyword"),  # exact match, uses index
+    DataField("admin1_code",  "keyword"),  # exact match, uses index
+    DataField("population",   "number"),   # numeric comparison
+    DataField("timezone",     "string"),   # substring search
+    DataField("latitude",     "number"),
+    DataField("longitude",    "number"),
 ]
 
-@laureates.route('/api/laureates', methods=['POST'])
-def laureates_data():
+@laureates.route('/api/places', methods=['POST'])
+def places_data():
     data = request.get_json()
-    return jsonify(DataTables(mongo, "laureates", data, data_fields=DATA_FIELDS).get_rows())
+    return jsonify(DataTables(mongo, "places", data, data_fields=DATA_FIELDS).get_rows())
 ```
 
-`table.js` points DataTables at that endpoint:
+`table.js` maps friendly column header names to MongoDB field names so users can
+type `country:GB` instead of `country_code:GB`:
 
 ```javascript
-$('#laureates_table').DataTable({
-    serverSide: true,
-    ajax: {
-        url: '/api/laureates',
-        type: 'POST',
-        contentType: 'application/json',
-        data: function (d) { return JSON.stringify(d); }
-    },
-    columns: [
-        { data: 'year' },
-        { data: 'category' },
-        { data: 'name' },
-        // ...
-    ]
-});
+const headerToKey = {
+    'name':       'name',
+    'country':    'country_code',
+    'feature':    'feature_code',
+    'region':     'admin1_code',
+    'population': 'population',
+    'timezone':   'timezone',
+};
 ```
 
-That's the entire integration.
+## Search examples
+
+```
+name:york                    →  all places containing "york"
+country:GB                   →  exact match on country_code (indexed)
+feature:PPL                  →  populated places
+country:US feature:MT        →  mountains in the US
+population:>1000000          →  cities over 1 million
+timezone:America             →  all American timezones
+```
 
 ## License
 
