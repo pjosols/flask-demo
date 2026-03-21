@@ -19,9 +19,6 @@ def create_app():
         try:
             mongo.db.command('ping')
             print("MongoDB connected successfully!")
-
-            from app.tools.db_init import create_indexes
-            create_indexes()
         except Exception as e:
             print(f"MongoDB connection error: {e}")
 

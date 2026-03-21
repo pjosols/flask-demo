@@ -3,7 +3,7 @@
 Live demo: [flask-demo.net](https://flask-demo.net)
 
 A Flask app demonstrating server-side DataTables powered by
-[mongo-datatables](https://github.com/pjosols/mongo-datatables), using the
+[mongo-datatables](https://mongo-datatables.net), using the
 [GeoNames](https://www.geonames.org/) dataset (~13M geographic place names).
 
 ## Quickstart
@@ -55,7 +55,7 @@ flask-demo/
 │   │   └── routes.py        # views + API endpoint
 │   ├── static/js/table.js   # DataTables init + header→field mapping
 │   ├── templates/index.html # page template
-│   └── tools/db_init.py     # index creation (runs on startup)
+│   └── tools/db_init.py     # index creation (used by seed script)
 ├── data/allCountries.txt    # GeoNames bulk data (downloaded separately)
 ├── seed_geonames.py         # downloads and loads data into MongoDB
 └── requirements.txt
@@ -95,17 +95,6 @@ const headerToKey = {
     'population': 'population',
     'timezone':   'timezone',
 };
-```
-
-## Search examples
-
-```
-name:york                    →  all places containing "york"
-country:GB                   →  exact match on country_code (indexed)
-feature:PPL                  →  populated places
-country:US feature:MT        →  mountains in the US
-population:>1000000          →  cities over 1 million
-timezone:America             →  all American timezones
 ```
 
 ## License
