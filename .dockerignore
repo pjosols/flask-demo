@@ -1,29 +1,16 @@
-# flyctl launch added from .gitignore
-# Python
-**/__pycache__
-**/*.py[cod]
-**/*.egg-info
-
-# Virtual environment
-**/.venv
-
-# Environment variables
-**/.env
-**/set_secrets.sh
-
-# OS
-**/.DS_Store
-
-# flyctl launch added from .idea/.gitignore
-# Default ignored files
-.idea/shelf
-.idea/workspace.xml
-# Editor-based HTTP Client requests
-.idea/httpRequests
-# Datasource local storage ignored files
-.idea/dataSources
-.idea/dataSources.local.xml
-
-# flyctl launch added from .venv/.gitignore
-.venv/**/*
+.git
+.venv
+.idea
+.claude
+.kiro
+.github
+__pycache__
+data
+*.py[cod]
+*.egg-info
+.DS_Store
+.env
+set_secrets.sh
 fly.toml
+README.md
+seed_geonames.py
