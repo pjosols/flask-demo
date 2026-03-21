@@ -1,4 +1,5 @@
 Flask==3.1.0
 flask_pymongo==3.0.1
--e /Users/polsen/Projects/mongo-datatables
-pymongo==4.11.2
+mongo-datatables==2.0.0
+pymongo[srv]==4.11.2
+gunicorn==23.0.0

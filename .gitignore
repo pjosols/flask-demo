@@ -8,6 +8,10 @@ __pycache__/
 
 # Environment variables
 .env
+set_secrets.sh
+
+# GeoNames data files
+data/
 
 # OS
 .DS_Store

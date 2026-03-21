@@ -1,5 +1,7 @@
 # mongo-datatables Flask Demo
 
+Live demo: [flask-demo.net](https://flask-demo.net)
+
 A Flask app demonstrating server-side DataTables powered by
 [mongo-datatables](https://github.com/pjosols/mongo-datatables), using the
 [GeoNames](https://www.geonames.org/) dataset (~13M geographic place names).
@@ -48,7 +50,7 @@ flask-demo/
 │   ├── __init__.py          # app factory
 │   ├── app.py               # entry point
 │   ├── config.py            # configuration
-│   ├── laureates/
+│   ├── places/
 │   │   ├── __init__.py      # blueprint
 │   │   └── routes.py        # views + API endpoint
 │   ├── static/js/table.js   # DataTables init + header→field mapping
@@ -75,7 +77,7 @@ DATA_FIELDS = [
     DataField("longitude",    "number"),
 ]
 
-@laureates.route('/api/places', methods=['POST'])
+@places.route('/api/places', methods=['POST'])
 def places_data():
     data = request.get_json()
     return jsonify(DataTables(mongo, "places", data, data_fields=DATA_FIELDS).get_rows())

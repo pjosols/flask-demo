@@ -1,7 +1,7 @@
 from flask import render_template, request, jsonify
 from mongo_datatables import DataTables, DataField
 from app import mongo
-from app.laureates import laureates
+from app.places import places
 
 DATA_FIELDS = [
     DataField("name",         "string"),
@@ -15,12 +15,12 @@ DATA_FIELDS = [
 ]
 
 
-@laureates.route('/')
+@places.route('/')
 def index():
     return render_template('index.html')
 
 
-@laureates.route('/api/places', methods=['POST'])
+@places.route('/api/places', methods=['POST'])
 def places_data():
     data = {}
     try:

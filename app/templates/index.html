@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -48,14 +49,20 @@
     </div>
 
     <footer class="text-center text-secondary py-5" style="font-size:0.75rem">
-        Data sourced from <a href="https://www.geonames.org/" target="_blank" class="text-secondary">GeoNames</a>
-        (CC BY 4.0) &middot;
-        Server-side processing by
-        <a href="https://github.com/pjosols/mongo-datatables" target="_blank">mongo-datatables</a>
+        Data sourced from <a href="https://www.geonames.org/" target="_blank">GeoNames</a> (CC BY 4.0) &nbsp;|&nbsp;
+        For a full-featured demo built on Flask, see <a href="https://mongo-datatables.com" target="_blank">mongo-datatables.com</a> &nbsp;|&nbsp;
+        Demos: <a href="https://fastapi-demo.net" target="_blank">FastAPI</a> <a href="https://github.com/pjosols/fastapi-demo" target="_blank"><i class="bi bi-github"></i></a> &middot;
+        <a href="https://flask-demo.net" target="_blank">Flask</a> <a href="https://github.com/pjosols/flask-demo" target="_blank"><i class="bi bi-github"></i></a> &middot;
+        <a href="https://django-demo.net" target="_blank">Django</a> <a href="https://github.com/pjosols/django-demo" target="_blank"><i class="bi bi-github"></i></a> &nbsp;|&nbsp;
+        <a href="https://github.com/pjosols/mongo-datatables" target="_blank">GitHub</a> &middot;
+        <a href="https://mongo-datatables.readthedocs.io/" target="_blank">Docs</a> &middot;
+        <a href="https://pypi.org/project/mongo-datatables/" target="_blank">PyPI</a>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.2.2/datatables.min.js"></script>
     <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script data-goatcounter="https://mongo-datatables.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

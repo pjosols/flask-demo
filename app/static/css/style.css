@@ -63,6 +63,27 @@ body {
 /* DataTables info text */
 .dt-container .dt-info { font-size: 1rem; opacity: 0.5; }
 
+/* Column search row */
+.col-search-row th {
+    padding: 0.4rem 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+.col-search-row input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.75rem;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    width: 100%;
+}
+.col-search-row input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.15rem var(--accent-dim);
+}
+
 /* Footer */
 footer a { color: var(--accent); text-decoration: none; }
 footer a:hover { color: var(--accent-hover); }
